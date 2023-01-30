@@ -18,10 +18,6 @@ function getComputerChoice() {
   } 
 }
 
-
-
-
-
 function playRound(player, computer) {
   if (player === computer) {
     return 'Draw';
@@ -63,9 +59,7 @@ function game() {
 
   if (playerCount === computerCount) {
     console.log('The match has no winner');
-  }
-
-  if (playerCount > computerCount) {
+  } else if (playerCount > computerCount) {
     console.log('Player wins the match');
   } else {
     console.log('Computer wins the match');
