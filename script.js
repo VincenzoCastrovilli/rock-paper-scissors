@@ -1,25 +1,17 @@
-const rock = document.querySelector('#rock');
-const paper = document.querySelector('#paper');
-const scissors = document.querySelector('#scissors');
-
-
-
-
 let playerChoice = '';
-let computerChoice = getComputerChoice();
+let playerPoint = 0;
+let computerPoint = 0;
 
-const choices = document.querySelectorAll('button'); 
+const content = document.querySelector('#content');
+const choices = document.querySelectorAll('button');
 
-choices.forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    playerChoice = e.target.id;
-    playRound(playerChoice, computerChoice)
-  })
-})
+const result = document.createElement('p');
+content.appendChild(result);
+result.innerHTML = 'Press a button to start a round. <br>The first to reach 5 points win the match'
 
-
-
-
+const scores = document.createElement('p');
+content.appendChild(scores);
+scores.innerHTML = 'Player score: ' + playerPoint + '<br>Computer score: ' + computerPoint;
 
 function getComputerChoice() {
   let choice = Math.floor(Math.random() * 3);
@@ -41,20 +33,54 @@ function getComputerChoice() {
   } 
 }
 
+choices.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    playerChoice = e.target.id;
+    playRound(playerChoice, getComputerChoice())
+  })
+})
+
+
 function playRound(player, computer) {
   if (player === computer) {
-    console.log(`Player: ${player}\nComputer: ${computer}\nResult: Draw`);
+    result.innerHTML = 'Player: ' + player + ' ||| ' + ' Computer: ' + computer + '  ==> DRAW' 
+    scores.innerHTML = 'Player score: ' + playerPoint + '<br>Computer score: ' + computerPoint;
   }
 
   if ((player === 'rock' && computer === 'scissors') || 
       (player === 'paper' && computer === 'rock') ||
       (player === 'scissors' && computer === 'paper')) {
-        console.log(`Player: ${player}\nComputer: ${computer}\nResult: Player wins`);
+        playerPoint++;
+        result.innerHTML = 'Player: ' + player + ' ||| ' + ' Computer: ' + computer + '  ==> PLAYER WINS THE ROUND'
+        scores.innerHTML = 'Player score: ' + playerPoint + '<br>Computer score: ' + computerPoint;
+        if (playerPoint == 5) {
+          scores.textContent = 'Player wins the match, choose another button to restart'
+          playerPoint = 0;
+          computerPoint = 0;
+        }
+        
   }
   if ((player === 'rock' && computer === 'paper') || 
-  (player === 'paper' && computer === 'scissors') ||
-  (player === 'scissors' && computer === 'rock')) {
-    console.log(`Player: ${player}\nComputer: ${computer}\nResult: Computer wins`);
+      (player === 'paper' && computer === 'scissors') ||
+      (player === 'scissors' && computer === 'rock')) {
+        computerPoint++;
+        result.innerHTML = 'Player: ' + player + ' ||| ' + ' Computer: ' + computer + '  ==> COMPUTER WINS THE ROUND'
+        scores.innerHTML = 'Player score: ' + playerPoint + '<br>Computer score: ' + computerPoint;
+        if (computerPoint == 5) {
+          scores.textContent = 'Computer wins the match, choose another button to restart'
+          playerPoint = 0;
+          computerPoint = 0;
+        }   
   }
 }
+
+
+
+
+
+
+
+
+
+
 
