@@ -1,3 +1,26 @@
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+
+
+
+
+let playerChoice = '';
+let computerChoice = getComputerChoice();
+
+const choices = document.querySelectorAll('button'); 
+
+choices.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    playerChoice = e.target.id;
+    playRound(playerChoice, computerChoice)
+  })
+})
+
+
+
+
+
 function getComputerChoice() {
   let choice = Math.floor(Math.random() * 3);
   switch (choice) {
@@ -20,53 +43,18 @@ function getComputerChoice() {
 
 function playRound(player, computer) {
   if (player === computer) {
-    return 'Draw';
+    console.log(`Player: ${player}\nComputer: ${computer}\nResult: Draw`);
   }
 
   if ((player === 'rock' && computer === 'scissors') || 
       (player === 'paper' && computer === 'rock') ||
       (player === 'scissors' && computer === 'paper')) {
-        return 'Player';
+        console.log(`Player: ${player}\nComputer: ${computer}\nResult: Player wins`);
   }
   if ((player === 'rock' && computer === 'paper') || 
   (player === 'paper' && computer === 'scissors') ||
   (player === 'scissors' && computer === 'rock')) {
-    return 'Computer';
+    console.log(`Player: ${player}\nComputer: ${computer}\nResult: Computer wins`);
   }
 }
-
-function game() {
-  let playerCount = 0;
-  let computerCount = 0;
-
-  for(i=0; i<5; i++) {
-    let playerSelection = window.prompt('Type rock, paper or scissors').toLowerCase();
-    let computerSelection = getComputerChoice();
-
-    let result = playRound(playerSelection, computerSelection);
-    if(result === 'Draw') {
-      console.log('It\'s a draw');
-    }
-    if(result === 'Player') {
-      console.log('Player wins');
-      playerCount++;
-    }
-    if (result === 'Computer') {
-      console.log('Computer wins');
-      computerCount++;
-    }
-  }
-
-  if (playerCount === computerCount) {
-    console.log('The match has no winner');
-  } else if (playerCount > computerCount) {
-    console.log('Player wins the match');
-  } else {
-    console.log('Computer wins the match');
-  }
-}
-
-game();
-
-
 
